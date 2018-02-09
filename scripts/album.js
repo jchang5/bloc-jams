@@ -28,7 +28,7 @@ var albumPicasso = {
      ]
  };
 
- var albumMarconi = {
+ var albumYouth1982 = {
      title: 'Zoe and Superman',
      artist: 'Youth 1982',
      label: 'Mecca',
@@ -54,13 +54,13 @@ var albumPicasso = {
 
      return template;
  };
+ var albumTitle = document.getElementsByClassName('album-view-title')[0];
+ var albumArtist = document.getElementsByClassName('album-view-artist')[0];
+ var albumReleaseInfo = document.getElementsByClassName('album-view-release-info')[0];
+ var albumImage = document.getElementsByClassName('album-cover-art')[0];
+ var albumSongList = document.getElementsByClassName('album-view-song-list')[0];
 
  var setCurrentAlbum = function(album) {
-     var albumTitle = document.getElementsByClassName('album-view-title')[0];
-     var albumArtist = document.getElementsByClassName('album-view-artist')[0];
-     var albumReleaseInfo = document.getElementsByClassName('album-view-release-info')[0];
-     var albumImage = document.getElementsByClassName('album-cover-art')[0];
-     var albumSongList = document.getElementsByClassName('album-view-song-list')[0];
 
      albumTitle.firstChild.nodeValue = album.title;
      albumArtist.firstChild.nodeValue = album.artist;
@@ -75,5 +75,15 @@ var albumPicasso = {
  };
 
  window.onload = function() {
-     setCurrentAlbum(Marconi);
+     setCurrentAlbum(albumPicasso);
+     var albums= [albumPicasso, albumMarconi, albumYouth1982];
+     var index = 1;
+     albumImage.addEventListener("click", function(event) {
+       setCurrentAlbum(albums[index]);
+       index++;
+       if (index == albums.length) {
+         index = 0;
+       }
+     });
+
  };
