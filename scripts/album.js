@@ -55,13 +55,13 @@ var albumPicasso = {
      return template;
  };
 
+ var albumTitle = document.getElementsByClassName('album-view-title')[0];
+ var albumArtist = document.getElementsByClassName('album-view-artist')[0];
+ var albumReleaseInfo = document.getElementsByClassName('album-view-release-info')[0];
+ var albumImage = document.getElementsByClassName('album-cover-art')[0];
+ var albumSongList = document.getElementsByClassName('album-view-song-list')[0];
+
  var setCurrentAlbum = function(album) {
-     // #1
-     var albumTitle = document.getElementsByClassName('album-view-title')[0];
-     var albumArtist = document.getElementsByClassName('album-view-artist')[0];
-     var albumReleaseInfo = document.getElementsByClassName('album-view-release-info')[0];
-     var albumImage = document.getElementsByClassName('album-cover-art')[0];
-     var albumSongList = document.getElementsByClassName('album-view-song-list')[0];
 
      // #2
      albumTitle.firstChild.nodeValue = album.title;
@@ -76,6 +76,16 @@ var albumPicasso = {
      for (var i = 0; i < album.songs.length; i++) {
          albumSongList.innerHTML += createSongRow(i + 1, album.songs[i].title, album.songs[i].duration);
      }
+ };
+
+ var findParentByClassName = function(element, targetClass) {
+    if (element) {
+        var currentParent = element.parentElement;
+        while (currentParent.className !== targetClass && currentParent.className !== null) {
+            currentParent = currentParent.parentElement;
+        }
+        return currentParent;
+    }
  };
 
  var getSongItem = function(element) {
@@ -96,6 +106,15 @@ var albumPicasso = {
      }
  };
 
+ var songListContainer = document.getElementsByClassName('album-view-song-list')[0];
+ var songRows = document.getElementsByClassName('album-view-song-item');
+
+ var playButtonTemplate = '<a class="album-song-button"><span class="ion-play"></span></a>';
+ var pauseButtonTemplate = '<a class="album-song-button"><span class="ion-pause"></span></a>';
+
+// Store state of playing songs
+var currentlyPlayingSong = null;
+
  var clickHandler = function(targetElement) {
         var songItem = getSongItem(targetElement);
 
@@ -113,27 +132,18 @@ var albumPicasso = {
      }
   };
 
- var songListContainer = document.getElementsByClassName('album-view-song-list')[0];
- var songRows = document.getElementsByClassName('album-view-song-item');
-
- var playButtonTemplate = '<a class="album-song-button"><span class="ion-play"></span></a>';
- var pauseButtonTemplate = '<a class="album-song-button"><span class="ion-pause"></span></a>';
-
-// Store state of playing songs
-var currentlyPlayingSong = null;
-
-var findParentByClassName = function(element, targetClass) {
-   if (element) {
-       var currentParent = element.parentElement;
-       while (currentParent.className !== targetClass && currentParent.className !== null) {
-           currentParent = currentParent.parentElement;
-       }
-       return currentParent;
-   }
-};
-
  window.onload = function() {
      setCurrentAlbum(albumPicasso);
+
+     var albums= [albumPicasso, albumMarconi, albumYouth1982];
+     var index = 1;
+     albumImage.addEventListener("click", function(event) {
+       setCurrentAlbum(albums[index]);
+       index++;
+       if (index == albums.length) {
+         index = 0;
+       }
+     });
 
      songListContainer.addEventListener('mouseover', function(event) {
        if (event.target.parentElement.className === 'album-view-song-item') {
@@ -155,20 +165,12 @@ var findParentByClassName = function(element, targetClass) {
       // #2
       if (songItemNumber !== currentlyPlayingSong) {
           songItem.innerHTML = songItemNumber;
+      } else if (songItemNumber ==currentlyPlayingSong) {
+        songItem.innerHTML = pauseButtonTemplate;
       }
      });
-     songRows[i].addEventListener('click', function(event) {
-     clickHandler(event.target);
-});
+     songRows[i].addEventListener('click',function(event) {
+       clickHandler(event.target);
+     });
 }
  };
-
-     var albums= [albumPicasso, albumMarconi, albumYouth1982];
-     var index = 1;
-     albumImage.addEventListener("click", function(event) {
-       setCurrentAlbum(albums[index]);
-       index++;
-       if (index == albums.length) {
-         index = 0;
-       }
-     });
