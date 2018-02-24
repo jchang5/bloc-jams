@@ -78,14 +78,6 @@
     display: none;
 }
 
-
-<<<<<<< HEAD
-=======
- .seek-control {
-     position: relative;
-     font-size: 0.8rem;
- }
-
  .seek-control .current-time {
      position: absolute;
      top: 0.5rem;
@@ -136,7 +128,6 @@
      margin-left: -0.5rem;
  }
 
->>>>>>> checkpoint-28-musicplayer
 
  .seek-control {
      position: relative;
@@ -197,8 +188,6 @@
      width: 25%;
      text-align: right;
  }
-<<<<<<< HEAD
-=======
 
 
   .player-bar .volume .icon {
@@ -247,4 +236,3 @@
           display: block;
       }
   }
->>>>>>> checkpoint-28-musicplayer
