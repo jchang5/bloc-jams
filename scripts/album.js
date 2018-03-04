@@ -57,7 +57,7 @@ var albumPicasso = {
      var clickHandler = function() {
        var songNumber = $(this).attr('data-song-number');
 
-       if (currentlyPlayingSong === null) {
+       if (currentlyPlayingSong !== null) {
          var currentlyPlayingCell = $('.song-item-number[data-song-number="' + currentlyPlayingSong + '"]');
          currentlyPlayingCell.html(currentlyPlayingSong);
        }
@@ -120,7 +120,6 @@ var albumPicasso = {
  var playButtonTemplate = '<a class="album-song-button"><span class="ion-play"></span></a>';
  var pauseButtonTemplate = '<a class="album-song-button"><span class="ion-pause"></span></a>';
 
-// Store state of playing songs
 var currentlyPlayingSong = null;
 
  $(document).ready(function() {
