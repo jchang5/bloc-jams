@@ -65,12 +65,11 @@
      };
 
      $row.find('.song-item-number').click(clickHandler);
-    // #2
+
     $row.hover(onHover, offHover);
-    // #3
+
     return $row;
  };
-
 
  var setCurrentAlbum = function(album) {
    currentAlbum = album;
@@ -94,8 +93,6 @@
      }
  };
 
-
-<<<<<<< HEAD
  var trackIndex = function(album, song) {
      return album.songs.indexOf(song);
  };
@@ -165,9 +162,6 @@ var previousSong = function() {
 
     var $previousButton = $('.main-controls .previous');
     var $nextButton = $('.main-controls .next');
-=======
-var currentlyPlayingSong = null;
->>>>>>> checkpoint-31-jqueryplay
 
  $(document).ready(function() {
      setCurrentAlbum(albumPicasso);
