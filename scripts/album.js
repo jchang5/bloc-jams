@@ -1,7 +1,7 @@
 
 var setSong = function(songNumber){
   var currentlyPlayingSongNumber = parseInt(songNumber);
-  var currentSongFromAlbum = currentAlbum.songs[songNumber-1];
+  var currentSongFromAlbum = parseInt(currentAlbum.songs[songNumber-1]);
 };
 
 var getSongNumberCell = function(number){
@@ -11,7 +11,7 @@ var getSongNumberCell = function(number){
  var createSongRow = function(songNumber, songName, songLength) {
      var template =
         '<tr class="album-view-song-item">'
-      + '  <td class="song-item-number" data-song-number="' + songNumber + '">' + songNumber + '</td>'
+      + '  <td class="song-item-number" data-song-number="' + parseInt(songNumber) + '">' + parseInt(songNumber) + '</td>'
       + '  <td class="song-item-title">' + songName + '</td>'
       + '  <td class="song-item-duration">' + songLength + '</td>'
       + '</tr>'
@@ -152,9 +152,6 @@ var previousSong = function() {
 
     var $previousButton = $('.main-controls .previous');
     var $nextButton = $('.main-controls .next');
-
-var currentlyPlayingSong = null;
-
 
  $(document).ready(function() {
      setCurrentAlbum(albumPicasso);
