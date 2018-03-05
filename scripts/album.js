@@ -1,18 +1,12 @@
 
- var albumYouth1982 = {
-     title: 'Zoe and Superman',
-     artist: 'Youth 1982',
-     label: 'Mecca',
-     year: '2018',
-     albumArtUrl: 'assets/images/album_covers/03.png',
-     songs: [
-         { title: 'Lightning Fast', duration: '2:02' },
-         { title: 'Red and Blue', duration: '3:16' },
-         { title: 'Save You', duration: '3:25'},
-         { title: 'Phone Booth', duration: '2:58' },
-         { title: 'Exclusive', duration: '3:36'}
-     ]
- };
+var setSong = function(songNumber){
+  var currentlyPlayingSongNumber = parseInt(songNumber);
+  var currentSongFromAlbum = currentAlbum.songs[songNumber-1];
+};
+
+var getSongNumberCell = function(number){
+  return $('.song-item-number[data-song-number="' + number + '"]');
+};
 
  var createSongRow = function(songNumber, songName, songLength) {
      var template =
@@ -29,19 +23,17 @@
        var songNumber = parseInt($(this).attr('data-song-number'));
 
         if (currentlyPlayingSongNumber !== null) {
-         var currentlyPlayingCell = $('.song-item-number[data-song-number="' + currentlyPlayingSongNumber + '"]');
+         var currentlyPlayingCell = getSongNumberCell(currentlyPlayingSongNumber);
          currentlyPlayingCell.html(currentlyPlayingSongNumber);
        }
       if (currentlyPlayingSongNumber !== songNumber) {
         $(this).html(pauseButtonTemplate);
-        currentlyPlayingSongNumber = songNumber;
-        currentSongFromAlbum = currentAlbum.songs[songNumber - 1];
+        setSong(songNumber);
         updatePlayerBarSong();
       } else if (currentlyPlayingSongNumber === songNumber) {
         $(this).html(playButtonTemplate);
         $('.main-controls .play-pause').html(playerBarPlayButton);
-        currentlyPlayingSongNumber = null;
-        currentSongFromAlbum = null;
+        setSong(songNumber);
        }
     };
 
@@ -65,12 +57,9 @@
      };
 
      $row.find('.song-item-number').click(clickHandler);
-    // #2
     $row.hover(onHover, offHover);
-    // #3
     return $row;
- };
-
+  };
 
  var setCurrentAlbum = function(album) {
    currentAlbum = album;
@@ -94,8 +83,6 @@
      }
  };
 
-
-<<<<<<< HEAD
  var trackIndex = function(album, song) {
      return album.songs.indexOf(song);
  };
@@ -122,8 +109,8 @@ var nextSong = function(){
 
   updatePlayerBarSong();
 
-  var $nextSongNumberCell = $('.song-item-number[data-song-number="' + currentlyPlayingSongNumber + '"]');
-  var $lastSongNumberCell = $('.song-item-number[data-song-number="' + lastSongNumber + '"]');
+  var $nextSongNumberCell = getSongNumberCell(currentlyPlayingSongNumber);
+  var $lastSongNumberCell = getSongNumberCell(lastSongNumber);
 
     $nextSongNumberCell.html(pauseButtonTemplate);
     $lastSongNumberCell.html(lastSongNumber);
@@ -147,8 +134,8 @@ var previousSong = function() {
 
     $('.main-controls .play-pause').html(playerBarPauseButton);
 
-    var $previousSongNumberCell = $('.song-item-number[data-song-number="' + currentlyPlayingSongNumber + '"]');
-    var $lastSongNumberCell = $('.song-item-number[data-song-number="' + lastSongNumber + '"]');
+    var $previousSongNumberCell = getSongNumberCell(currentlyPlayingSongNumber)
+    var $lastSongNumberCell = getSongNumberCell(lastSongNumber)
 
     $previousSongNumberCell.html(pauseButtonTemplate);
     $lastSongNumberCell.html(lastSongNumber);
@@ -165,16 +152,16 @@ var previousSong = function() {
 
     var $previousButton = $('.main-controls .previous');
     var $nextButton = $('.main-controls .next');
-=======
+
 var currentlyPlayingSong = null;
->>>>>>> checkpoint-31-jqueryplay
+
 
  $(document).ready(function() {
      setCurrentAlbum(albumPicasso);
      $previousButton.click(previousSong);
      $nextButton.click(nextSong);
 
-     var albums= [albumPicasso, albumMarconi, albumYouth1982];
+     var albums= [albumPicasso, albumMarconi];
      var index = 1;
      var $albumImage = $('.album-cover-art');
 
