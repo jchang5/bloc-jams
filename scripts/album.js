@@ -1,19 +1,13 @@
 
- var albumYouth1982 = {
-     title: 'Zoe and Superman',
-     artist: 'Youth 1982',
-     label: 'Mecca',
-     year: '2018',
-     albumArtUrl: 'assets/images/album_covers/03.png',
-     songs: [
-         { title: 'Lightning Fast', duration: '2:02' },
-         { title: 'Red and Blue', duration: '3:16' },
-         { title: 'Save You', duration: '3:25'},
-         { title: 'Phone Booth', duration: '2:58' },
-         { title: 'Exclusive', duration: '3:36'}
-     ]
- };
-
+var setSong = function(songNumber) {
+     currentlyPlayingSongNumber = parseInt(songNumber);
+     currentSongFromAlbum = currentAlbum.songs[songNumber - 1];
+currentSoundFile = new buzz.sound(currentSongFromAlbum.audioUrl, {
+        // #2
+        formats: [ 'mp3' ],
+        preload: true
+    });
+};
  var createSongRow = function(songNumber, songName, songLength) {
      var template =
         '<tr class="album-view-song-item">'
@@ -159,6 +153,7 @@ var previousSong = function() {
     var currentAlbum = null;
     var currentlyPlayingSongNumber = null;
     var currentSongFromAlbum = null;
+    var currentSoundFile = null;
 
     var $previousButton = $('.main-controls .previous');
     var $nextButton = $('.main-controls .next');
